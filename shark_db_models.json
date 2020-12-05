@@ -1,0 +1,32 @@
+{
+    "user": {
+        "customer": false,
+        "email": "@gmail.com", 
+        "password": "xxxxxxxxx",
+        "id": 153
+    },
+    "item": {
+        "name": "burgerfish",
+        "price": 100000,
+        "fisherman_id": 153,
+        "image": "I am not sure what is the best way of sending images via rest API"
+    },
+    "chat": {
+        "fisherman_id": 153,
+        "customer_id": 154,
+        "messages": [
+            {
+                "sender_id": 153,
+                "text": "dskijfilwehfisdjfoeifjsj"
+            },
+            {
+                "sender_id": 154,
+                "text": "sdifjo;ewnfoisk"
+            },
+            {
+                "sender_id": 153,
+                "text": "ladmnksfoisdfjioas"
+            }
+        ]
+    }
+}
