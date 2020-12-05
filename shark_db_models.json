@@ -13,7 +13,8 @@
     "name": "burgerfish",
     "price": 100000,
     "fisherman_id": 153,
-    "image": "https://smth.com/img1"
+    "image": "https://smth.com/img1",
+    "description": "long description..."
 }
 
 // chat model
@@ -72,7 +73,8 @@
     "name": "burgerfish",
     "price": 100000.00,
     "fisherman_id": 153,
-    "image": "https://smth.com/img1"
+    "image": "https://smth.com/img1",
+    "description": "long description..."
 }
 // response
 // successful: 0
@@ -93,13 +95,15 @@
         "name": "burgerfish",
         "price": 100000.00,
         "fisherman_id": 153,
-        "image": "https://smth.com/img1"
+        "image": "https://smth.com/img1",
+        "description": "long description..."
     },
     {
         "name": "burgerfish2",
         "price": 100000.00,
         "fisherman_id": 153,
-        "image": "https://smth.com/img2"
+        "image": "https://smth.com/img2",
+        "description": "long description..."
     }
 ]
 
