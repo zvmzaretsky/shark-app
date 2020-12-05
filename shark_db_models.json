@@ -1,32 +1,117 @@
+/// models ///
+
+// user model
 {
-    "user": {
-        "customer": false,
-        "email": "@gmail.com", 
-        "password": "xxxxxxxxx",
-        "id": 153
-    },
-    "item": {
+    "customer": false,
+    "email": "@gmail.com", 
+    "password": "xxxxxxxxx",
+    "id": 153
+}
+
+// item model
+{
+    "name": "burgerfish",
+    "price": 100000,
+    "fisherman_id": 153,
+    "image": "https://smth.com/img1"
+}
+
+// chat model
+{
+    "fisherman_id": 153,
+    "customer_id": 154,
+    "messages": [
+        {
+            "id": 153,
+            "text": "dskijfilwehfisdjfoeifjsj"
+        },
+        {
+            "id": 154,
+            "text": "sdifjo;ewnfoisk"
+        },
+        {
+            "id": 153,
+            "text": "ladmnksfoisdfjioas"
+        }
+    ]
+}
+
+
+/// actions ///
+
+// sign up
+// input
+{
+    "email": "someemail@gmail.com",
+    "password": "1234567",
+    "customer": false
+}
+// response
+// successful: 0
+// failed: -1(already registered), -2(unknown error)
+{
+    "status": 0
+}
+
+// log in
+// input
+{
+    "email": "someemail@gmail.com",
+    "password": "1234567"
+}
+// response
+// successful: id = user's id
+// failed: id = -1(incorrect password) or -2(not registered) or -3(unknown error)
+{
+    "id": 153
+}
+
+// add fish item
+// input
+{
+    "name": "burgerfish",
+    "price": 100000.00,
+    "fisherman_id": 153,
+    "image": "https://smth.com/img1"
+}
+// response
+// successful: 0
+// failed: -1
+{
+    "status": 0
+}
+
+// search by fish name
+// input
+{
+    "query": "burg"
+}
+// response
+// gives array of all items that contain such substring in their name
+[
+    {
         "name": "burgerfish",
-        "price": 100000,
+        "price": 100000.00,
         "fisherman_id": 153,
-        "image": "I am not sure what is the best way of sending images via rest API"
+        "image": "https://smth.com/img1"
     },
-    "chat": {
+    {
+        "name": "burgerfish2",
+        "price": 100000.00,
         "fisherman_id": 153,
-        "customer_id": 154,
-        "messages": [
-            {
-                "sender_id": 153,
-                "text": "dskijfilwehfisdjfoeifjsj"
-            },
-            {
-                "sender_id": 154,
-                "text": "sdifjo;ewnfoisk"
-            },
-            {
-                "sender_id": 153,
-                "text": "ladmnksfoisdfjioas"
-            }
-        ]
+        "image": "https://smth.com/img2"
     }
+]
+
+// send message
+// input
+{
+     "id": 153,
+     "text": "lalfkghodfjigodfjgdmnksfoisdfjioas"
+}
+// response
+// successful: 0
+// failed: -1
+{
+    "status": 0
 }
