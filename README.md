@@ -2,6 +2,6 @@
 
 Application to help fishermen and customers find each other.
 
-> Cheaper
-> More fresh
-> Less overfishing
+1. Cheaper
+2. More fresh
+3. Less overfishing
