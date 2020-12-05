@@ -1,4 +1,4 @@
-import 'package:fish_app/screens/home.dart';
+import 'package:fish_app/screens/search.dart';
 import 'package:fish_app/screens/login.dart';
 import 'package:fish_app/screens/signup.dart';
 import 'package:fish_app/utils/validate.dart';
@@ -10,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (ctx) => validate(),
         Login.route : (ctx) => Login(),
         Signup.route : (ctx) => Signup(),
-        Home.route : (ctx) => Home(),
+        Search.route : (ctx) => Search(),
       },
       theme: ThemeData(
         primaryColor: Color.fromRGBO(73, 97, 222, 1),
