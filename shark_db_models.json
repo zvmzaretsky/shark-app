@@ -3,6 +3,7 @@
 // user model
 {
     "customer": false,
+    "name": "Lorem Ipsum",
     "email": "@gmail.com", 
     "password": "xxxxxxxxx",
     "id": 153
@@ -44,6 +45,7 @@
 // input
 {
     "email": "someemail@gmail.com",
+    "name": "Lorem Ipsum",
     "password": "1234567",
     "customer": false
 }
@@ -61,10 +63,17 @@
     "password": "1234567"
 }
 // response
-// successful: id = user's id
-// failed: id = -1(incorrect password) or -2(not registered) or -3(unknown error)
+// successful: user
 {
+    "customer": false,
+    "name": "Lorem Ipsum",
+    "email": "@gmail.com", 
+    "password": "xxxxxxxxx",
     "id": 153
+}
+// failed: error = -1(incorrect password) or -2(not registered) or -3(unknown error)
+{
+    "error": -1
 }
 
 // add fish item
