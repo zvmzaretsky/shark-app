@@ -1,4 +1,4 @@
-import 'package:fish_app/widgets/chat.dart';
+import 'package:fish_app/widgets/chats.dart';
 import 'package:fish_app/widgets/profile.dart';
 import 'package:fish_app/widgets/search.dart';
 import 'package:flutter/material.dart';
