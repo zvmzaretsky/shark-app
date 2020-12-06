@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/signup.dart';
-import 'package:fish_app/utils/role.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var _key;
   String _email = "", _password = "";
+  bool incorrectPassword = false;
 
   @override
   void initState() {
@@ -24,7 +27,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-
     Color _color1 = Colors.transparent;
 
     return Scaffold(
@@ -35,7 +37,7 @@ class _LoginState extends State<Login> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: SvgPicture.asset(
-                    "lib/assets/bg.svg",
+                  "lib/assets/bg.svg",
                   fit: BoxFit.fill,
                 ),
                 top: 0,
@@ -57,10 +59,7 @@ class _LoginState extends State<Login> {
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: _color1,
-                                width: 1.0
-                            ),
+                            border: Border.all(color: _color1, width: 1.0),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black12,
@@ -80,7 +79,7 @@ class _LoginState extends State<Login> {
                                 _color1 = Colors.red;
                                 return "Please enter an Email";
                               } else if (!(value.contains('@') &&
-                                  value.contains('.')) ||
+                                      value.contains('.')) ||
                                   value.contains(' ')) {
                                 _color1 = Colors.red;
                                 return "Please Enter a Valid Email";
@@ -94,24 +93,21 @@ class _LoginState extends State<Login> {
                               filled: true,
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 20.0,
-                                bottom: 15.0
-                              ),
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 20.0,
+                                  bottom: 15.0),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
-                                borderSide: BorderSide(
-                                    color: _color1,
-                                    width: 1),
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide:
+                                    BorderSide(color: _color1, width: 1),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
-                                borderSide: BorderSide(
-                                    color: _color1,
-                                    width: 1),
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide:
+                                    BorderSide(color: _color1, width: 1),
                               ),
                             ),
                           ),
@@ -157,28 +153,28 @@ class _LoginState extends State<Login> {
                                   left: 20.0,
                                   right: 20.0,
                                   top: 20.0,
-                                  bottom: 15.0
-                              ),
+                                  bottom: 15.0),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                    BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: Colors.transparent, width: 0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                    BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: Colors.transparent, width: 0),
                               ),
                             ),
+                          ),
                         ),
-                      ),
-
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03),
+                        Container(
+                            child: incorrectPassword
+                                ? Text("Incorrect password or email")
+                                : SizedBox()),
                         Container(
                           height: 50,
                           width: 300,
@@ -193,10 +189,30 @@ class _LoginState extends State<Login> {
                           ),
                           child: InkWell(
                             splashColor: Colors.grey,
-                            onTap: () {
+                            onTap: () async {
                               if (_key.currentState.validate()) {
                                 _key.currentState.save();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),));
+                                String url =
+                                    "https://us-central1-aiot-fit-xlab.cloudfunctions.net/sharkhacklogin";
+                                var body = json.encode(
+                                    {"email": _email, "password": _password});
+                                var response = await http.post(url,
+                                    body: body,
+                                    headers: {
+                                      "Content-Type": "application/json"
+                                    });
+                                var res = json.decode(response.body);
+                                if (res["status"])
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Home(),
+                                      ));
+                                else {
+                                  setState(() {
+                                    incorrectPassword = true;
+                                  });
+                                }
                               }
                             },
                             borderRadius:
@@ -206,11 +222,8 @@ class _LoginState extends State<Login> {
                                   color: Theme.of(context).accentColor,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20.0))),
-                              padding: EdgeInsets.only(
-                                  top: 16.0
-                              ),
-                              child: Text(
-                                  "Login",
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: Text("Login",
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.subtitle1),
                             ),
