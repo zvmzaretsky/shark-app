@@ -28,7 +28,7 @@ class _SignupState extends State<Signup> {
         child: Stack(
           children: [
             Positioned(
-                child: SvgPicture.asset("lib/assets/bg.svg"),
+                child: SvgPicture.asset("lib/assets/bg1.svg"),
                 bottom: 0,
                 right: 0),
             Container(
@@ -38,11 +38,12 @@ class _SignupState extends State<Signup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   Text(
                     "I am a",
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     InkWell(
                       onTap: () {
@@ -78,89 +79,126 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                   ]),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   Form(
                     key: _key,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width * 0.2),
                       child: Column(children: [
-                        TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              _name = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please enter your Name";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Complete Name',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            filled: true,
-                            fillColor: Colors.white70,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 0),
+                          Container(
+                            height: 50,
+                            width: 300,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
+                            child: TextFormField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _name = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return "Please enter your Name";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Complete Name',
+                                hintStyle: TextStyle(color: Colors.grey),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.only(
+                                    left: 20.0,
+                                    right: 20.0,
+                                    top: 20.0,
+                                    bottom: 15.0
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                        Container(
+                          height: 50,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                _email = value;
+                              });
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter an Email";
+                              } else if (!(value.contains('@') &&
+                                  value.contains('.')) ||
+                                  value.contains(' ')) {
+                                return "Please Enter a Valid Email";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: TextStyle(color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 20.0,
+                                  bottom: 15.0
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              _email = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please enter an Email";
-                            } else if (!(value.contains('@') &&
-                                    value.contains('.')) ||
-                                value.contains(' ')) {
-                              return "Please Enter a Valid Email";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Email',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            filled: true,
-                            fillColor: Colors.white70,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                            height: MediaQuery.of(context).size.height * 0.025),
                         TextFormField(
                           onChanged: (value) {
                             setState(() {
@@ -181,25 +219,31 @@ class _SignupState extends State<Signup> {
                             hintText: 'Password',
                             hintStyle: TextStyle(color: Colors.grey),
                             filled: true,
-                            fillColor: Colors.white70,
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.only(
+                                left: 20.0,
+                                right: 20.0,
+                                top: 20.0,
+                                bottom: 15.0
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
+                              BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Colors.transparent,
                                   width: 0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
+                              BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
+                                  color: Colors.transparent,
+                                  width: 0),
                             ),
                           ),
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                            height: MediaQuery.of(context).size.height * 0.025),
                         TextFormField(
                           obscureText: true,
                           validator: (value) {
@@ -218,27 +262,43 @@ class _SignupState extends State<Signup> {
                             hintText: 'Confirm Password',
                             hintStyle: TextStyle(color: Colors.grey),
                             filled: true,
-                            fillColor: Colors.white70,
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.only(
+                                left: 20.0,
+                                right: 20.0,
+                                top: 20.0,
+                                bottom: 15.0
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
+                              BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Colors.transparent,
                                   width: 0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
+                              BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
+                                  color: Colors.transparent,
+                                  width: 0),
                             ),
                           ),
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Material(
-                          color: Colors.transparent,
+                            height: MediaQuery.of(context).size.height * 0.025),
+                        Container(
+                          height: 50,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
                           child: InkWell(
                             splashColor: Colors.grey,
                             onTap: () {
@@ -247,27 +307,26 @@ class _SignupState extends State<Signup> {
                               }
                             },
                             borderRadius:
-                                BorderRadius.all(Radius.circular(50.0)),
+                                BorderRadius.all(Radius.circular(20.0)),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    MediaQuery.of(context).size.height * 0.03,
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.23,
-                              ),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).accentColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(24.0))),
+                                color: Theme.of(context).accentColor,
+                                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              ),
+                              padding: EdgeInsets.only(
+                                  top: 16.0
+                              ),
                               child: Text("Sign Up",
-                                  style: Theme.of(context).textTheme.subtitle1),
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.subtitle1
+                              ),
                             ),
                           ),
                         ),
                       ]),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                   FlatButton(
                     splashColor: Colors.transparent,
                     onPressed: () {
