@@ -175,7 +175,7 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
 
     # conn = psycopg2.connect(opt.dsn)
-    conn = psycopg2.connect("postgres://rootuser:rootpassword@weary-ox-66d.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=require")
+    conn = psycopg2.connect("postgres://geturownusername:geturownpassword@weary-ox-66d.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=require")
 ##    delete_users(conn)
 ##    create_users(conn)
     print_names(conn)
@@ -231,4 +231,4 @@ def parse_cmdline():
 if __name__ == "__main__":
     main()
 
-## postgres://rootuser:rootpassword@weary-ox-66d.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=require
+## postgres://geturownusernamer:geturownpassword@weary-ox-66d.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=require
