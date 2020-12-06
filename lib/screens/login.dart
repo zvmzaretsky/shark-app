@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/signup.dart';
+import 'package:fish_app/utils/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -202,13 +203,18 @@ class _LoginState extends State<Login> {
                                       "Content-Type": "application/json"
                                     });
                                 var res = json.decode(response.body);
-                                if (res["status"])
+                                if (res["status"]) {
+                                  setUser(
+                                    email: _email,
+                                    name: res["name"],
+                                    role:res["usertype"]
+                                  );
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Home(),
                                       ));
-                                else {
+                                } else {
                                   setState(() {
                                     incorrectPassword = true;
                                   });

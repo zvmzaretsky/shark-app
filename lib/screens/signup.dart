@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/login.dart';
 import 'package:fish_app/utils/role.dart';
+import 'package:fish_app/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -307,7 +308,7 @@ class _SignupState extends State<Signup> {
                                   "name": _name,
                                   "email": _email,
                                   "password": _password,
-                                  "type": role
+                                  "usertype": role.toString()
                                 });
                                 var response = await http.post(url,
                                     body: body,
@@ -315,12 +316,18 @@ class _SignupState extends State<Signup> {
                                       "Content-Type": "application/json"
                                     });
                                 var res = json.decode(response.body);
-                                if (res.status)
+                                if (res["status"]) {
+                                  setUser(
+                                    email: _email,
+                                    name: _name,
+                                    role: role.toString()
+                                  );
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Home(),
                                       ));
+                                }
                                 else
                                   setState(() {
                                     error = true;
