@@ -1,3 +1,4 @@
+import 'package:fish_app/utils/user.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -5,8 +6,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String _name = "JohnDoe";
-    String _email = "johndoe@company.com";
+    String _name = user["name"];
+    String _email = user["email"];
 
     return Container(
       height: MediaQuery.of(context).size.height,
