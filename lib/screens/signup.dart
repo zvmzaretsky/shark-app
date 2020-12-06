@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/login.dart';
 import 'package:fish_app/utils/role.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 class Signup extends StatefulWidget {
   static const String route = "/signup";
@@ -15,6 +18,7 @@ class _SignupState extends State<Signup> {
   var _key;
   String _email = "", _password = "", _name = "";
   Role role = Role.fisherman;
+  bool error = false;
 
   @override
   void initState() {
@@ -81,66 +85,67 @@ class _SignupState extends State<Signup> {
                     ),
                   ]),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Container(
+                    child: error? Text("An Error Occured") : SizedBox(),
+                  ),
                   Form(
                     key: _key,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width * 0.2),
                       child: Column(children: [
-                          Container(
-                            height: 50,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: TextFormField(
-                              onChanged: (value) {
-                                setState(() {
-                                  _name = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return "Please enter your Name";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Complete Name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: EdgeInsets.only(
-                                    left: 20.0,
-                                    right: 20.0,
-                                    top: 20.0,
-                                    bottom: 15.0
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
-                                  borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
-                                  borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0),
-                                ),
+                        Container(
+                          height: 50,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                _name = value;
+                              });
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter your Name";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Complete Name',
+                              hintStyle: TextStyle(color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 20.0,
+                                  bottom: 15.0),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.transparent, width: 0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.transparent, width: 0),
                               ),
                             ),
                           ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.025),
                         Container(
                           height: 50,
                           width: 300,
@@ -163,7 +168,7 @@ class _SignupState extends State<Signup> {
                               if (value.isEmpty) {
                                 return "Please enter an Email";
                               } else if (!(value.contains('@') &&
-                                  value.contains('.')) ||
+                                      value.contains('.')) ||
                                   value.contains(' ')) {
                                 return "Please Enter a Valid Email";
                               } else {
@@ -179,21 +184,18 @@ class _SignupState extends State<Signup> {
                                   left: 20.0,
                                   right: 20.0,
                                   top: 20.0,
-                                  bottom: 15.0
-                              ),
+                                  bottom: 15.0),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                    BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: Colors.transparent, width: 0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
+                                    BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: Colors.transparent, width: 0),
                               ),
                             ),
                           ),
@@ -225,21 +227,18 @@ class _SignupState extends State<Signup> {
                                 left: 20.0,
                                 right: 20.0,
                                 top: 20.0,
-                                bottom: 15.0
-                            ),
+                                bottom: 15.0),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0),
+                                  color: Colors.transparent, width: 0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0),
+                                  color: Colors.transparent, width: 0),
                             ),
                           ),
                         ),
@@ -268,21 +267,18 @@ class _SignupState extends State<Signup> {
                                 left: 20.0,
                                 right: 20.0,
                                 top: 20.0,
-                                bottom: 15.0
-                            ),
+                                bottom: 15.0),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0),
+                                  color: Colors.transparent, width: 0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                               borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0),
+                                  color: Colors.transparent, width: 0),
                             ),
                           ),
                         ),
@@ -302,10 +298,33 @@ class _SignupState extends State<Signup> {
                           ),
                           child: InkWell(
                             splashColor: Colors.grey,
-                            onTap: () {
+                            onTap: () async {
                               if (_key.currentState.validate()) {
                                 _key.currentState.save();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),));
+                                String url =
+                                    "https://us-central1-aiot-fit-xlab.cloudfunctions.net/sharkhackregister";
+                                var body = json.encode({
+                                  "name": _name,
+                                  "email": _email,
+                                  "password": _password,
+                                  "type": role
+                                });
+                                var response = await http.post(url,
+                                    body: body,
+                                    headers: {
+                                      "Content-Type": "application/json"
+                                    });
+                                var res = json.decode(response.body);
+                                if (res.status)
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Home(),
+                                      ));
+                                else
+                                  setState(() {
+                                    error = true;
+                                  });
                               }
                             },
                             borderRadius:
@@ -313,15 +332,13 @@ class _SignupState extends State<Signup> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Theme.of(context).accentColor,
-                                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
                               ),
-                              padding: EdgeInsets.only(
-                                  top: 16.0
-                              ),
+                              padding: EdgeInsets.only(top: 16.0),
                               child: Text("Sign Up",
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.subtitle1
-                              ),
+                                  style: Theme.of(context).textTheme.subtitle1),
                             ),
                           ),
                         ),
