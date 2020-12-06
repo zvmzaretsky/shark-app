@@ -1,3 +1,4 @@
+import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/login.dart';
 import 'package:fish_app/utils/role.dart';
 import 'package:flutter/material.dart';
@@ -304,6 +305,7 @@ class _SignupState extends State<Signup> {
                             onTap: () {
                               if (_key.currentState.validate()) {
                                 _key.currentState.save();
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),));
                               }
                             },
                             borderRadius:

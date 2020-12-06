@@ -1,3 +1,4 @@
+import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/signup.dart';
 import 'package:fish_app/utils/role.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {
-static const String route = "/login";
+  static const String route = "/login";
 
   @override
   _LoginState createState() => _LoginState();
@@ -187,6 +188,7 @@ class _LoginState extends State<Login> {
                             onTap: () {
                               if (_key.currentState.validate()) {
                                 _key.currentState.save();
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),));
                               }
                             },
                             borderRadius:
@@ -214,12 +216,11 @@ class _LoginState extends State<Login> {
                     splashColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Signup(),
-                                    ),
-                                  );
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Signup(),
+                        ),
+                      );
                     },
                     child: Text("Sign Up",
                         style: Theme.of(context).textTheme.subtitle2),
