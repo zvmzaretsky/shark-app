@@ -15,7 +15,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var _key;
   String _email = "", _password = "";
-  Role role = Role.fisherman;
 
   @override
   void initState() {
@@ -25,6 +24,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
+    Color _color1 = Colors.transparent;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -55,6 +57,10 @@ class _LoginState extends State<Login> {
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
+                            border: Border.all(
+                                color: _color1,
+                                width: 1.0
+                            ),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black12,
@@ -71,10 +77,12 @@ class _LoginState extends State<Login> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
+                                _color1 = Colors.red;
                                 return "Please enter an Email";
                               } else if (!(value.contains('@') &&
                                   value.contains('.')) ||
                                   value.contains(' ')) {
+                                _color1 = Colors.red;
                                 return "Please Enter a Valid Email";
                               } else {
                                 return null;
@@ -95,15 +103,15 @@ class _LoginState extends State<Login> {
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: _color1,
+                                    width: 1),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(20.0)),
                                 borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 0),
+                                    color: _color1,
+                                    width: 1),
                               ),
                             ),
                           ),
