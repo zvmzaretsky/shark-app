@@ -1,4 +1,4 @@
-import 'package:fish_app/screens/search.dart';
+import 'package:fish_app/screens/home.dart';
 import 'package:fish_app/screens/login.dart';
 import 'package:fish_app/screens/signup.dart';
 import 'package:fish_app/utils/validate.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         "/": (ctx) => validate(),
         Login.route : (ctx) => Login(),
         Signup.route : (ctx) => Signup(),
-        Search.route : (ctx) => Search(),
+        Home.route : (ctx) => Home(),
       },
       theme: ThemeData(
         primaryColor: Color.fromRGBO(73, 97, 222, 1),

@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
     "lib/assets/search.svg",
     "lib/assets/profile.svg"
   ];
-  int activeScreen = 0;
+  int activeScreen = 1;
 
   @override
   Widget build(BuildContext context) {
