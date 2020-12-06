@@ -308,7 +308,7 @@ class _SignupState extends State<Signup> {
                                   "name": _name,
                                   "email": _email,
                                   "password": _password,
-                                  "usertype": role.toString()
+                                  "type": role.toString()
                                 });
                                 var response = await http.post(url,
                                     body: body,
@@ -316,7 +316,7 @@ class _SignupState extends State<Signup> {
                                       "Content-Type": "application/json"
                                     });
                                 var res = json.decode(response.body);
-                                if (res["status"]) {
+                                if (res["result"] == "successfully added") {
                                   setUser(
                                     email: _email,
                                     name: _name,
